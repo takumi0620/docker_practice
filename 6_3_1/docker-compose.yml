@@ -1,0 +1,16 @@
+version: "2"
+services:
+  # コンテナ名
+  web-container:
+    # イメージ取得
+    image: httpd
+    # ローカルファイルをマウント
+    volumes:
+      - ./index.html:/usr/local/apache2/htdocs/index.html
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+    # -pに相当する部分
+    ports:
+      - 80:80
+    # EXPOSE相当する部分
+    expose:
+      - 80

@@ -1,0 +1,12 @@
+version: "2"
+services:
+  # ub-testコンテナの生成
+  ub-test:
+    image: ubuntu
+
+    # -it部分の設定
+    tty: true
+    stdin_open: true
+
+    # /bin/bash部分の設定
+    command: /bin/bash

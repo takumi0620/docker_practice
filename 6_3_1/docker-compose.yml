@@ -14,3 +14,11 @@ services:
     # EXPOSE相当する部分
     expose:
       - 80
+    volumes_from:
+      - log-container
+  log-container:
+    image: busybox
+    volumes:
+      - log-volumes:/usr/local/apache2/logs/
+volumes:
+  log-volume:

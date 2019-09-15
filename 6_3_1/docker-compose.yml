@@ -19,6 +19,6 @@ services:
   log-container:
     image: busybox
     volumes:
-      - log-volumes:/usr/local/apache2/logs/
+      - log-volume:/usr/local/apache2/logs/
 volumes:
   log-volume:

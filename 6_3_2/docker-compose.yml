@@ -1,0 +1,9 @@
+version: "2"
+services:
+  rproxy-container:
+    build: ./rproxy
+    ports:
+      - 80:80
+
+  web-container:
+    build: ./web

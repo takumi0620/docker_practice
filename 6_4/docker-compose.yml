@@ -1,0 +1,52 @@
+version: "2"
+services:
+  db-container:
+    image: busybox
+    volumes:
+      - db-volume:/var/lib/mysql/
+  mysql-container:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=redmine
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes_from:
+      - db-container
+    depends_on:
+      - db-container
+    restart: always
+  pma-container:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql-container
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql-container
+    restart: always 
+  wp-container:
+    image: wordpress
+    environment:
+      - "WORDPRESS_DB_HOST=mysql-container"
+      - "WORDPRESS_DB_USER=root"
+      - "WORDPRESS_DB_PASSWORD=password"
+    ports:
+      - "80:80"
+    depends_on:
+      - "mysql-container"
+    restart: always
+  rm-container:
+    image: redmine
+    environment:
+      - REDMINE_DB_MYSQL=mysql-container
+      - REDMINE_DB_USERNAME=root
+      - REDMINE_DB_PASSWORD=password
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql-container
+    restart: always
+volumes:
+  db-volume:

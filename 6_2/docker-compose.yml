@@ -10,3 +10,4 @@ services:
 
     # /bin/bash部分の設定
     command: /bin/bash
+    
